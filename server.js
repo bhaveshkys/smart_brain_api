@@ -14,7 +14,9 @@ const DB = knex({
   client: 'pg',
   connection: { 
     connectionString: process.env.DATABASE_URL, // dynamic database value for heroku    
-    ssl: true
+    ssl: {
+      rejectUnauthorized: false
+    }
   }
 });
 
@@ -28,6 +30,7 @@ app.use(express.json({extended: true}));
 app.use(cors());
 
 app.post('/signin',(req,res) =>{
+  const{name,email,password}=req.body;
   if(!email || !password){
     return( res.status(400).json("incorrect form submission"));
   }
