@@ -13,9 +13,7 @@ const app = express()
 const DB = knex({
   client: 'pg',
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  ssl: true
 });
 
 DB.select().table('users').then(data=>{
