@@ -83,7 +83,7 @@ app.post('/register',(req,res) =>{
   
 })
 app.get('/', function (req, res) {
-  res.send(users);
+  res.send("this server is working");
 })
 app.post('/profile/:id',(req,res) =>{
   const{id}=req.params;
@@ -117,4 +117,6 @@ app.post('/imageURL',(req,res) =>{
   .catch(err=>res.status(400).json('unable to work with API'))
 })
 
-app.listen(3000)
+app.listen(process.env.PORT ||3000,()=>{
+  console.log(`app is running on port ${process.env.PORT}`)
+})
