@@ -12,8 +12,12 @@ const app = express()
 
 const DB = knex({
   client: 'pg',
-  connectionString: process.env.DATABASE_URL,
-  ssl: true
+  connection: { 
+    connectionString: process.env.DATABASE_URL, // dynamic database value for heroku    
+    ssl: {
+      rejectUnauthorized: false
+    }
+  }
 });
 
 DB.select().table('users').then(data=>{
