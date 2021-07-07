@@ -14,9 +14,7 @@ const DB = knex({
   client: 'pg',
   connection: { 
     connectionString: process.env.DATABASE_URL, // dynamic database value for heroku    
-    ssl: {
-      rejectUnauthorized: false
-    }
+    ssl: true
   }
 });
 
@@ -48,7 +46,7 @@ app.post('/signin',(req,res) =>{
       res.json('wrong email or password')
     }
   })
-  .catch(err=> res.status(400).json('wrong email or password'))
+  .catch(err=> res.status(400).json('wrong email or password') )
 })
 app.post('/register',(req,res) =>{
   const{name,email,password}=req.body;
