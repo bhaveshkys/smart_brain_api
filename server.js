@@ -111,16 +111,17 @@ app.put('/image',(req,res) =>{
 }
 )
 app.post('/imageURL',(req,res) =>{
-  if(! req.body.input){
-    return( res.status(400).json("no link submitted"));
+  if(req.body.input.length===0){
+    return( res.status(400).json(" empty link"));
   }
-  capp.models.predict(Clarifai.FACE_DETECT_MODEL,req.body.input)
-  .then(data=>{
-    res.json(data);
-  })
-  .catch(err=>res.status(400).json('unable to work with API'))
-})
-
+    capp.models.predict(Clarifai.FACE_DETECT_MODEL,req.body.input)
+    .then(data=>{
+      res.json(data);
+    })
+    .catch(err=>res.status(400).json('unable to work with API'))
+    
+    })
+  
 app.listen(process.env.PORT ,()=>{
   console.log(`app is running on port ${process.env.PORT}`)
 })
