@@ -4,7 +4,7 @@ import knex from 'knex';
 import bcrypt from 'bcrypt-nodejs';
 import Clarifai from 'clarifai';
 const capp = new Clarifai.App({
-  apiKey: 'a01473ba526b4a8abe4a7694a71a5f86'
+  apiKey: process.env.CLARAIFAI_KEY
 })
 
 
@@ -113,13 +113,13 @@ app.put('/image',(req,res) =>{
 app.post('/imageURL',(req,res) =>{
   if(req.body.input.length===0){
     return( res.status(400).json(" empty link"));
-  }
+  } else{
     capp.models.predict(Clarifai.FACE_DETECT_MODEL,req.body.input)
     .then(data=>{
       res.json(data);
     })
     .catch(err=>res.status(400).json('unable to work with API'))
-    
+  }
     })
   
 app.listen(process.env.PORT ,()=>{
